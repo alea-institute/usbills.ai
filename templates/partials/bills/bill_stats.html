@@ -1,0 +1,169 @@
+{% macro render_bill_stats(bill) %}
+
+<div class="bg-white rounded-lg shadow-lg p-6 mb-8 sticky top-4">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Bill Statistics</h2>
+
+    <div class="space-y-4">
+        <div class="border-b pb-4">
+            <h3 class="text-sm font-medium text-gray-600 mb-2">Size</h3>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <span class="text-sm text-gray-600">Sections:</span>
+                    <div class="relative inline-block group">
+                            <span class="text-sm font-medium ml-1 percentile-color" aria-label="Number of sections"
+                                  data-percentile="{{ " {:.1f}".format(bill.num_sections_percentile) }}">
+                        {{ "{:,}".format(bill.num_sections) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{ "{:.1f}".format(bill.num_sections_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Words:</span>
+                    <div class="relative inline-block group">
+                <span class="text-sm font-medium ml-1 percentile-color"
+                      aria-label="Number of words" data-percentile="{{ " {:.1f}".format(bill.num_tokens_percentile) }}">
+                        {{ "{:,}".format(bill.num_tokens) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{ "{:.1f}".format(bill.num_tokens_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Pages:</span>
+                    <div class="relative inline-block group">
+                <span class="text-sm font-medium ml-1 percentile-color"
+                      aria-label="Number of pages" data-percentile="{{ " {:.1f}".format(bill.num_pages_percentile) }}">
+                        {{ "{:,}".format(bill.num_pages) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{ "{:.1f}".format(bill.num_pages_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Sentences:</span>
+                    <div class="relative inline-block group">
+                                    <span class="text-sm font-medium ml-1 percentile-color"
+                                          aria-label="Number of sentences" data-percentile="{{ " {:.1f}".format(bill.num_sentences_percentile)
+                        }}">
+                        {{ "{:,}".format(bill.num_sentences) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{ "{:.1f}".format(bill.num_sentences_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-b pb-4">
+            <h3 class="text-sm font-medium text-gray-600 mb-2">Language</h3>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <span class="text-sm text-gray-600">Nouns:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_nouns) }}</span>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Verbs:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_verbs) }}</span>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Adjectives:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_adjectives) }}</span>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Adverbs:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_adverbs) }}</span>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Numbers:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_numbers) }}</span>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Entities:</span>
+                    <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(bill.num_entities) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-b pb-4">
+            <h3 class="text-sm font-medium text-gray-600 mb-2">Complexity</h3>
+            <div class="grid grid-cols-1 gap-2">
+                <div>
+                    <span class="text-sm text-gray-600">Average Token Length:</span>
+                    <div class="relative inline-block group">
+            <span class="text-sm font-medium text-gray-800 ml-1 percentile-color"
+                  aria-label="Average token length" data-percentile="{{ " {:.1f}".format(bill.avg_token_length_percentile)
+                        }}">
+                        {{ "{:.2f}".format(bill.avg_token_length) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{
+                            "{:.1f}".format(bill.avg_token_length_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Average Sentence Length:</span>
+                    <div class="relative inline-block group">
+            <span class="text-sm font-medium text-gray-800 ml-1 percentile-color"
+                  aria-label="Average sentence length" data-percentile="{{ " {:.1f}".format(bill.avg_sentence_length_percentile)
+                        }}">
+                        {{ "{:.2f}".format(bill.avg_sentence_length) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{
+                            "{:.1f}".format(bill.avg_sentence_length_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Token Entropy:</span>
+                    <div class="relative inline-block group">
+            <span class="text-sm font-medium text-gray-800 ml-1 percentile-color"
+                  aria-label="Token entropy" data-percentile="{{ " {:.1f}".format(bill.token_entropy_percentile) }}">
+                        {{ "{:.2f}".format(bill.token_entropy) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{ "{:.1f}".format(bill.token_entropy_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm text-gray-600">Readability (ARI):</span>
+                    <div class="relative inline-block group">
+            <span class="text-sm font-medium text-gray-800 ml-1 percentile-color"
+                  aria-label="Automated Readability Index" data-percentile="{{ " {:.1f}".format(bill.ari_raw_percentile)
+                        }}">
+                        {{ "{:.2f}".format(bill.ari_raw) }}
+                        </span>
+                        <div class="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-xs py-1 px-2 rounded shadow-lg z-10"
+                             role="tooltip">
+                            Percentile: {{
+                            "{:.1f}".format(bill.ari_raw_percentile) }}
+                            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

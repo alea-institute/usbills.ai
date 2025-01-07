@@ -1,0 +1,54 @@
+{% extends "partials/base/base.html" %}
+
+{% block title %}Search Results for {{ q }}{% endblock %}
+
+{% block description %}Search results for bills matching '{{ q }}'{% endblock %}
+
+{% block header_title %}Search Results for {{ q }}{% endblock %}
+
+{% block content %}
+<div class="mx-auto px-4 py-8 max-w-6xl">
+    {% if bills %}
+    <div class="mb-4 text-gray-600">
+        Found {{ total_bills }} results
+    </div>
+    
+    <div class="space-y-6">
+    {% for bill in bills %}
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-200">
+            <h2 class="text-xl font-semibold mb-2">
+                <a href="/bills/{{ bill.slug }}" class="text-blue-600 hover:text-blue-800">
+                    {{ bill.legis_num }} - {{ bill.title }}
+                </a>
+            </h2>
+            
+            <div class="text-sm text-gray-600 mb-4 flex flex-wrap gap-4">
+                <span>{{ bill.date.strftime('%B %d, %Y') }}</span>
+                <span>{{ bill.current_chamber | title }}</span>
+                <span>{{ bill.bill_version_description }}</span>
+            </div>
+            
+            <div class="prose prose-sm max-w-none mb-4">
+                {{ bill.summary | safe | truncate(300) }}
+            </div>
+            
+            {% if bill.keywords %}
+            <div class="flex flex-wrap gap-2">
+                {% for keyword in bill.keywords[:5] %}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {{ keyword }}
+                </span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+        <h3 class="text-lg font-medium text-gray-900">No results found</h3>
+        <p class="mt-2 text-sm text-gray-500">Try adjusting your search terms</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

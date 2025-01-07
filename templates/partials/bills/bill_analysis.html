@@ -1,0 +1,33 @@
+{% macro bill_analysis(bill) %}
+
+<div class="bg-white rounded-lg shadow-lg p-6 mb-8" id="analysis">
+    <h2 class="text-2xl font-semibold mb-4">Analysis<span class="ai-tag">AI</span></h2>
+    <div class="max-w-none prose md:text-justify markdown">{{ bill.commentary | safe }}</div>
+</div>
+
+{% if bill.money_commentary %}
+<div class="bg-white rounded-lg shadow-lg p-6 mb-8" id="show-me-the-money">
+    <h2 class="text-2xl font-semibold mb-4">Financial Assessment</h2>
+    <div class="max-w-none prose md:text-justify markdown">{{ bill.money_commentary | safe }}</div>
+</div>
+{% endif %}
+
+<!-- issue list -->
+{% if bill.issues %}
+<div class="bg-white rounded-lg shadow-lg p-6 mb-8" id="issues">
+    <h2 class="text-2xl font-semibold mb-4">Issues</h2>
+    <ul role="list" class="divide-y divide-gray-100">
+        {% for issue in bill.issues %}
+      <li class="flex justify-between gap-x-6 py-5 ml-4">
+          <!-- each issue is just a string to be displayed -->
+            <p class="text-gray-500 prose prose-sm max-w-none">
+                {{ issue }}
+            </p>
+      </li>
+
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endmacro %}

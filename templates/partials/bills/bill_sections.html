@@ -1,0 +1,59 @@
+{% macro render_bill_sections(bill, sections) %}
+
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900">Sections</h2>
+
+        <p class="mt-4 text-sm text-gray-500">Sections are presented as they are annotated in the original legislative
+            text. Any missing headers, numbers, or non-consecutive order is due to the original text.</p>
+
+        {% if sections %}
+        <div class="mt-8 space-y-8">
+            {% for section in sections %}
+            <div class="px-8 py-4 border-gray-500 border-l-2 bg-gray-50 rounded-lg">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {% if section.enum and section.header %}
+                    <span class="text-gray-500">{{ section.enum }}</span>
+                    <span class="ml-2">{{ section.header }}</span>
+                    {% elif section.enum %}
+                    <span class="text-gray-500">{{ section.enum }}</span>
+                    {% elif section.header %}
+                    <span class="text-gray-500">{{ section.header }}</span>
+                    {% endif %}
+                    <span class="text-sm font-medium text-gray-500">
+                        <a href="https://www.govinfo.gov/content/pkg/{{ bill.package_id }}/xml/{{ bill.package_id }}.xml#{{ section.toc_id }}"
+                           target="_blank"
+                           class="text-blue-600 hover:text-blue-900 font-medium">
+                                Read
+                                <span class="sr-only">Opens in new tab</span>
+                    </a>
+                    </span>
+                </h3>
+
+                <div class="mt-6 prose prose-sm max-w-none">
+                    <h4 class="text-base font-medium text-gray-900">Summary <span class="ai-tag">AI</span></h4>
+                    <div class="mt-2 text-gray-700">{{ section.summary | safe }}</div>
+                </div>
+
+                {% if section.money_sentences %}
+                <div class="mt-6">
+                    <h4 class="text-base font-medium text-gray-900">Money References</h4>
+                    <ul role="list" class="mt-2 list-disc pl-5 space-y-1 text-sm text-gray-600">
+                        {% for money_sentence in section.money_sentences %}
+                        <li class="list-disc">{{ money_sentence }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="mt-4 text-sm text-gray-500">No section data available.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endmacro %}

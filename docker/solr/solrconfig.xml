@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <luceneMatchVersion>8.11.2</luceneMatchVersion>
+    <dataDir>${solr.data.dir:}</dataDir>
+    <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+    <requestHandler name="/select" class="solr.SearchHandler">
+        <lst name="defaults">
+            <!-- Query Fields with boost values -->
+            <str name="qf">
+                title^15 legis_num^12 text^10 summary^8 eli5^6 commentary^4 issues^3 keywords^3
+            </str>
+
+            <!-- Phrase Fields with higher boost values -->
+            <str name="pf">
+                title^30 legis_num^24 text^20 summary^16 eli5^12 commentary^8 issues^6 keywords^6
+            </str>
+
+            <!-- Extended DisMax parser for flexible queries -->
+            <str name="defType">edismax</str>
+
+            <!-- Alternative query -->
+            <str name="q.alt">*:*</str>
+
+            <!-- Results per page -->
+            <str name="rows">100</str>
+
+            <!-- Fields to return -->
+            <str name="fl">package_id,title,date,legis_num,score</str>
+
+            <!-- Echo params setting -->
+            <str name="echoParams">explicit</str>
+
+            <!-- Default search fields -->
+            <str name="df">title text summary eli5</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
+</config>

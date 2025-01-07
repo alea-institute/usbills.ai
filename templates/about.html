@@ -1,0 +1,143 @@
+{% extends "partials/base/base.html" %}
+
+{% block title %}Making US Laws Accessible | usbills.ai{% endblock %}
+
+{% block header_title %}Making US Laws Accessible{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-5xl">
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900">Making US Laws Accessible</h1>
+        <p class="text-xl text-gray-600 mt-4">Helping everyone understand the lawmaking process</p>
+    </header>
+
+    <div class="prose prose-lg mx-auto space-y-12">
+        <!-- Introduction -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">About This Project</h2>
+            <div class="text-gray-700 space-y-4">
+                <p class="leading-relaxed md:text-justify">
+                    usbills.ai is an open source project designed to make federal legislation easier to understand for
+                    the general public. We use artificial intelligence to provide clear explanations and highlight
+                    key points from US Federal bills.
+                </p>
+                
+                <div class="bg-slate-50 rounded-lg p-6 border-l-4 border-blue-600">
+                    <h3 class="font-semibold text-gray-900">What We Offer</h3>
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li>Simple English explanations of bills</li>
+                        <li>Key points and summaries</li>
+                        <li>Financial impact breakdowns</li>
+                        <li>Links to official sources</li>
+                    </ul>
+                </div>
+
+                <div class="bg-amber-50 rounded-lg p-6 border-l-4 border-amber-600">
+                    <h3 class="font-semibold text-amber-900">Important Note</h3>
+                    <p class="text-amber-800">
+                        While we strive for accuracy, our AI-powered explanations are meant to supplement, not replace:
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>Official government documents</li>
+                            <li>Legal advice from professionals</li>
+                            <li>Your own research and judgment</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Sources -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Where The Data Comes From</h2>
+            <div class="bg-white shadow rounded-lg p-6">
+                <p class="mb-4">All legislative information comes from official government sources:</p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="font-semibold min-w-48">Bills and Laws:</div>
+                        <div>Government Publishing Office (GPO)</div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="font-semibold min-w-48">Updates:</div>
+                        <div>New bills are added daily</div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="font-semibold min-w-48">Verification:</div>
+                        <div>All information links back to official sources</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <div class="text-gray-700 space-y-4">
+                <p class="leading-relaxed md:text-justify">
+                    We process legislative text using traditional natural language processing and large language models ("AI")
+                    to make it more accessible.  For each bill, we start by retrieving and organizing information from official sources:
+                </p>
+                <ul class="mb-2 list-disc list-inside prose prose-lg text-left">
+                    <li>We download <a href="https://www.govinfo.gov/app/collection/BILLS" target="_blank">
+                        the official GPO metadata and XML version</a></li>
+                    <li>We parse the bill content, structure, and key information</li>
+                    <li>We store this in a standardized structure for analysis and comparison</li>
+                </ul>
+                <p class="leading-relaxed md:text-justify">
+                    Next, we use standard techniques to make quantitative and qualitative information more accessible:
+                </p>
+                <ul class="mb-2 list-disc list-inside prose prose-lg text-left">
+                    <li>We extract key measures of size and complexity</li>
+                    <li>We generate summaries of the bill and its sections</li>
+                    <li>We identify potential issues and financial impacts</li>
+                </ul>
+                <p class="leading-relaxed md:text-justify">
+                    Finally, we present this information in a clear and concise format for easy understanding and comparison.
+                </p>
+                <p class="leading-relaxed md:text-justify">
+                    The source code that performs these steps is open source and available for you to review below.
+                </p>
+            </div>
+        </section>
+
+        <!-- Usage Guidelines -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">How To Use This Site</h2>
+            
+            <div class="grid gap-6">
+                <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-600">
+                    <h3 class="font-semibold text-xl text-green-900 mb-4">Best Ways to Use</h3>
+                    <ul class="space-y-2 text-green-800">
+                        <li>Get an overview of new bills</li>
+                        <li>Understand complex legal language</li>
+                        <li>Track bills that interest you</li>
+                        <li>Find related legislation</li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 rounded-lg p-6 border-l-4 border-red-600">
+                    <h3 class="font-semibold text-xl text-red-900 mb-4">Remember</h3>
+                    <ul class="space-y-2 text-red-800">
+                        <li>This is not legal advice</li>
+                        <li>AI explanations may have errors</li>
+                        <li>Always verify important details</li>
+                        <li>Consult professionals when needed</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source -->
+        <section>
+            <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-600">
+                <h2 class="text-2xl font-bold text-blue-900 mb-4">Open Source Project</h2>
+                <p class="text-blue-800 mb-4">This is a free, open-source project. View our code and contribute:</p>
+                <a href="https://github.com/alea-institute/usbills.ai/" target="_blank"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    github.com/alea-institute/usbills.ai
+                </a>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

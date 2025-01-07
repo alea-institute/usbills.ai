@@ -1,0 +1,32 @@
+{% macro render_bill_stats(total_bills, total_tokens, total_sections, bills_by_type, bills_by_chamber) %}
+<!-- Heading centered -->
+<div id="population-stats" class="bg-slate-50 px-8 pb-8 pt-4 border-2 rounded-lg hover:shadow-lg transition-all duration-300">
+    <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">Statistics</h2>
+
+    <dl class="mx-auto grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        <!-- Total Bills -->
+        <div class="flex flex-wrap rounded-lg items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-6 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium text-gray-400">Total Bills</dt>
+            <dd class="w-full flex-none text-2xl font-medium tracking-tight text-gray-700">{{ "{:,}".format(total_bills)
+                }}
+            </dd>
+        </div>
+
+        <!-- Total Tokens -->
+        <div class="flex flex-wrap rounded-lg items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-6 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium text-gray-400">Total Words</dt>
+            <dd class="w-full flex-none text-2xl font-medium tracking-tight text-gray-700">{{
+                "{:,}".format(total_tokens) }}
+            </dd>
+        </div>
+
+        <!-- Total Sections -->
+        <div class="flex flex-wrap rounded-lg items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-6 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium text-gray-400">Total Sections</dt>
+            <dd class="w-full flex-none text-2xl font-medium tracking-tight text-gray-700">{{
+                "{:,}".format(total_sections) }}
+            </dd>
+        </div>
+    </dl>
+</div>
+{% endmacro %}

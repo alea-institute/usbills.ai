@@ -1,0 +1,6 @@
+{% extends "partials/base/base.html" %}
+{% from 'partials/bills/list_view.html' import render_bill_list %}
+
+{% block content %}
+{{ render_bill_list(bills, page, limit, offset, start_date, end_date, q, total_bills, has_more_bills) }}
+{% endblock %}

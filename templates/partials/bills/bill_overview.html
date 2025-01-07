@@ -1,0 +1,97 @@
+{% macro bill_overview(bill) %}
+
+<div class="bg-white rounded-xl shadow-2xl p-8 mb-10 hover:shadow-xl transition-shadow duration-300">
+    <h2 class="text-3xl font-bold mb-6 text-gray-800">Overview</h2>
+
+    <div class="prose prose-lg max-w-none mb-8">
+        <h3 class="text-2xl font-semibold mb-3 text-gray-700">Title</h3>
+        <div class="text-gray-600 leading-relaxed markdown"><p class="text-gray-600 leading-relaxed mb-6 markdown">{{ bill.title }}</p></div>
+
+
+        <h3 class="text-2xl font-semibold mb-3 text-gray-700 flex items-center gap-2">
+            ELI5
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">AI</span>
+        </h3>
+        <div class="text-gray-600 leading-relaxed markdown">{{ bill.eli5 | safe }}</div>
+
+        <h3 class="text-2xl font-semibold mb-3 text-gray-700 flex items-center gap-2">
+            Summary
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">AI</span>
+        </h3>
+        <div class="text-gray-600 leading-relaxed markdown">{{ bill.summary | safe }}</div>
+        <h4 class="text-xl font-semibold mb-3 text-gray-700 flex items-center gap-2">
+            Published
+        </h4>
+        <div class="text-gray-600 leading-relaxed mb-6">{{ bill.date | safe }}</div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-6 mb-8">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Congress:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.congress }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Session:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.session }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Chamber:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.current_chamber }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Status:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.bill_version_description }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Date:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.date }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm font-semibold text-gray-600">Package ID:</span>
+                <span class="text-sm ml-2 text-gray-500">{{ bill.package_id }}</span>
+            </div>
+        </div>
+    </div>
+
+    {% if bill.keywords %}
+    <div class="border-t border-gray-200 pt-6 mb-8">
+        <h3 class="text-2xl font-semibold mb-4 text-gray-700 flex items-center gap-2">
+            Keywords
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">AI</span>
+        </h3>
+        <div class="flex flex-wrap gap-2">
+            {% for keyword in bill.keywords %}
+            <a href="/search?q=keywords:&quot;{{ keyword }}&quot;"
+               class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-gray-200 transition-colors duration-200">
+                {{ keyword }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Sources</h2>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <a class="no-print flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                   target="_blank"
+                   href="https://www.govinfo.gov/content/pkg/{{ bill.package_id }}/xml/{{ bill.package_id }}.xml">
+                    <img src="/static/icons/external-link.svg" class="w-4 h-4" alt="External Link">
+                    <span class="text-sm font-semibold">Bill Text</span>
+                </a>
+            </div>
+            <div>
+                <a class="no-print flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                   target="_blank"
+                   href="https://www.govinfo.gov/app/details/{{ bill.package_id }}">
+                    <img src="/static/icons/external-link.svg" class="w-4 h-4" alt="External Link">
+                    <span class="text-sm font-semibold">Bill Metadata</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

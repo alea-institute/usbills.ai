@@ -1,0 +1,187 @@
+{% extends "partials/base/base.html" %}
+
+{% block title %}Bill Statistics{% endblock %}
+
+{% block header_title %}Bill Statistics{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Count Stats -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Total Counts</h3>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Total Bills</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,}".format(stats['total_bills']) }}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Total Words</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,}".format(stats['total_tokens']) }}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Total Sections</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,}".format(stats['total_sections']) }}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Total Sentences</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,}".format(stats['total_sentences']) }}
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Token Stats -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Word Statistics</h3>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Average Words per Bill</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,.0f}".format(stats['mean_tokens']) }}
+                    </dd>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Minimum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['min_tokens']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Median</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['p50_tokens']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Maximum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['max_tokens']) }}
+                        </dd>
+                    </div>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Section Stats -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Section Statistics</h3>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Average Sections per Bill</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,.1f}".format(stats['mean_sections']) }}
+                    </dd>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Minimum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['min_sections']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Median</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['p50_sections']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Maximum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.0f}".format(stats['max_sections']) }}
+                        </dd>
+                    </div>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Entropy Stats -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Entropy Statistics</h3>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Average Entropy per Bill</dt>
+                    <dd class="text-2xl font-semibold text-gray-900">
+                        {{ "{:,.2f}".format(stats['mean_entropy']) }}
+                    </dd>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Minimum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.2f}".format(stats['min_entropy']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Median</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.2f}".format(stats['p50_entropy']) }}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Maximum</dt>
+                        <dd class="text-lg font-semibold text-gray-900">
+                            {{ "{:,.2f}".format(stats['max_entropy']) }}
+                        </dd>
+                    </div>
+                </div>
+            </dl>
+        </div>
+
+
+        <!-- Bills by Type -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bills by Type</h3>
+            <dl class="space-y-4">
+                {% for type, count in stats['bills_by_type'].items() %}
+                <div class="flex justify-between items-center">
+                    <dt class="text-sm font-medium text-gray-500">{{ type }}</dt>
+                    <dd class="text-lg font-semibold text-gray-900">
+                        {{ "{:,}".format(count) }}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+
+        <!-- Bills by Version -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bills by Version</h3>
+            <dl class="space-y-4">
+                {% for version, count in stats['bills_by_version'].items() %}
+                <div class="flex justify-between items-center">
+                    <dt class="text-sm font-medium text-gray-500">{{ version }}</dt>
+                    <dd class="text-lg font-semibold text-gray-900">
+                        {{ "{:,}".format(count) }}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+
+        <!-- Bills by Chamber -->
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bills by Chamber</h3>
+            <dl class="space-y-4">
+                {% for chamber, count in stats['bills_by_chamber'].items() %}
+                <div class="flex justify-between items-center">
+                    <dt class="text-sm font-medium text-gray-500">{{ chamber | title }}</dt>
+                    <dd class="text-lg font-semibold text-gray-900">
+                        {{ "{:,}".format(count) }}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "partials/base/base.html" %}
+{% from "partials/bills/bill_stats.html" import render_bill_stats %}
+{% from "partials/bills/bill_overview.html" import bill_overview %}
+{% from "partials/bills/bill_analysis.html" import bill_analysis %}
+{% from "partials/bills/bill_sections.html" import render_bill_sections %}
+
+{% block meta %}
+<meta property="og:title" content="{{ bill.legis_num }} - {{ bill.title }}">
+<meta property="og:description" content="{{ bill.summary | striptags | truncate(160) }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.usbills.ai/bills/{{ bill.slug }}">
+
+<meta name="description" content="{{ bill.summary | striptags | truncate(160) }}">
+<meta name="keywords"
+      content="{{ bill.keywords | join(',') if bill.keywords else '' }},legislation,congress,bills,{{ bill.legis_num }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ bill.legis_num }} - {{ bill.title }}">
+<meta name="twitter:description" content="{{ bill.summary | striptags | truncate(160) }}">
+
+<link rel="canonical" href="https://www.usbills.ai/bills/{{ bill.slug }}">
+
+{% endblock %}
+
+{% block title %}{{ bill.legis_num }} - {{ bill.title }}{% endblock %}
+
+{% block description %}{{ bill.summary | striptags | truncate(160) }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <article itemscope itemtype="http://schema.org/Legislation">
+        <meta itemprop="legislationIdentifier" content="{{ bill.legis_num }}">
+        <meta itemprop="legislationType" content="US Bill">
+        <meta itemprop="datePublished" content="{{ bill.date }}">
+        <meta itemprop="keywords" content="{{ bill.keywords | join(',') if bill.keywords else '' }}">
+
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 flex justify-end md:justify-between items-center py-2">
+                <div class="hidden md:flex space-x-4 text-sm">
+                    <a href="#overview"
+                       class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                        Overview
+                    </a>
+                    <a href="#stats"
+                       class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                        Stats
+                    </a>
+                    <a href="#details"
+                       class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                        Analysis
+                    </a>
+                    {% if bill.money_commentary %}
+                    <a href="#show-me-the-money"
+                       class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                        💰
+                    </a>
+                    <a href="#sections">
+                        <span class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                            Sections
+                        </span>
+                    </a>
+                    {% endif %}
+                    <a href="/bills/{{ bill.package_id }}/json"
+                       class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out font-medium">
+                        JSON
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <div class="relative inline-block text-left">
+                        <button type="button"
+                                class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                id="bill-mobile-menu-button" aria-expanded="false" aria-haspopup="true">
+                            Links
+                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                 fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" id="bill-mobile-menu">
+                            <div class="py-1" role="none">
+                                <a href="#overview" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                                   role="menuitem">Overview</a>
+                                <a href="#stats" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                                   role="menuitem">Stats</a>
+                                <a href="#details" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                                   role="menuitem">Analysis</a>
+                                {% if bill.money_commentary %}
+                                <a href="#show-me-the-money"
+                                   class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">💰</a>
+                                {% endif %}
+                                <a href="#sections" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                                   role="menuitem">Sections</a>
+                                <a href="/bills/{{ bill.package_id }}/json"
+                                   class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                                   role="menuitem">JSON</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-12 lg:col-span-8" id="overview">
+                {{ bill_overview(bill) }}
+            </div>
+
+            <div class="col-span-12 lg:col-span-4" id="stats">
+                {{ render_bill_stats(bill) }}
+            </div>
+
+            <div class="col-span-12" id="details">
+                {{ bill_analysis(bill) }}
+
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8" id="sections">
+                    {{ render_bill_sections(bill, sections) }}
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<script>
+    const billMobileMenuButton = document.getElementById('bill-mobile-menu-button');
+    const billMobileMenu = document.getElementById('bill-mobile-menu');
+
+    billMobileMenuButton.addEventListener('click', () => {
+        billMobileMenu.classList.toggle('hidden');
+    });
+</script>
+{% endblock %}

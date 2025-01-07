@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    :root {
+        --primary: #003875;
+        --primary-hover: #002655;
+        --accent: #bf0d3e;
+        --accent-hover: #9e0b33;
+        --success: #2e8540;
+        --warning: #fdb81e;
+        --error: #d83933;
+        --info: #0071bc;
+    }
+
+    .bill-list-container {
+        @apply max-w-6xl mx-auto px-4 py-8;
+    }
+
+    .bill-list-item {
+        @apply bg-white border border-gray-200;
+    }
+
+    .bill-list-item:hover {
+        @apply border-gray-300;
+    }
+
+    .bill-title {
+        @apply transition-colors duration-200;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .bill-summary {
+        @apply text-gray-700 leading-relaxed border-l-2 border-primary pl-2 md:pl-4 pr-4 md:pr-8 md:text-justify md:break-before-auto md:hyphens-auto;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .bill-type {
+        @apply transition-colors duration-200;
+    }
+
+    .bill-eli5-details[open] summary {
+        @apply mb-2;
+    }
+
+    .bill-eli5 {
+        @apply text-gray-700 leading-relaxed;
+    }
+
+    /* Responsive Typography */
+    @screen sm {
+        .bill-title {
+            @apply text-lg;
+        }
+
+        .bill-summary {
+            @apply text-base;
+        }
+    }
+
+    @screen md {
+        .bill-title {
+            @apply text-xl;
+        }
+    }
+
+    /* Accessibility */
+    .skip-to-content {
+        @apply sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50
+        focus:p-4 focus:bg-white focus:text-primary focus:outline-none focus:ring-2
+        focus:ring-primary focus:ring-offset-2;
+    }
+
+    .ai-tag {
+        @apply ml-[0.25rem] align-super text-[0.75rem] leading-4 font-bold text-blue-500;
+    }
+
+    .keyword-cloud {
+        @apply flex flex-wrap gap-1 mt-4 mb-8;
+    }
+
+    .keyword-tag {
+        @apply inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium bg-gray-100 text-gray-800 mr-1 hover:bg-gray-200;
+    }
+
+    .markdown h1 {
+        font-size: 2em;
+        margin: 1.5em 0;
+    }
+
+    .markdown h2 {
+        font-size: 1.5em;
+        margin: 1.25em 0;
+    }
+
+    .markdown h3 {
+        font-size: 1.25em;
+        margin: 1em 0;
+    }
+
+    .markdown h4 {
+        font-size: 1em;
+        margin: 0.75em 0;
+    }
+
+    .markdown h5 {
+        font-size: 0.875em;
+        margin: 0.5em 0;
+    }
+
+    .markdown ul, .markdown ol {
+        margin: 1em 0 1em 0.5em;
+    }
+
+    .markdown li {
+        margin: 0.25em 0.25em 0.25em 0.5em;
+    }
+
+    .markdown p {
+        @apply text-gray-700 text-base leading-relaxed pl-1 lg:pl-2 pr-1 lg:pr-2 md:text-justify md:break-before-auto md:hyphens-auto;
+    }
+}
