@@ -19,7 +19,7 @@ logger = create_logger(__name__)
 
 
 # Constants
-BATCH_SIZE = 100
+BATCH_SIZE = 500
 
 
 async def get_bills() -> List[Dict[str, Any]]:
